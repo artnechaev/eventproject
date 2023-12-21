@@ -3,9 +3,13 @@
 {% block title %}{{ event.title }}{% endblock %}
 
 {% block content %}
-  <h1>{{ event.title }}</h1>
-  <p class="date">{{ event.date_time }}</p>
-  {{ event.description|linebreaks }}
 
-<a href="{% url 'event:event_list' %}">На главную</a>
+<h1>{{ event.title }}</h1>
+<p>{{ event.date_time|date:"d.m.Y" }} в {{ event.date_time|time:"H:i" }}</p>
+{{ event.description|linebreaks }}
+<br>
+<p><a href="{% url 'event:event_update' event.id %}">Изменить запись</a></p>
+<p><a href="{% url 'event:event_create' %}">Новая запись</a></p>
+<p><a href="{% url 'event:event_list' %}">На главную</a></p>
+
 {% endblock %}

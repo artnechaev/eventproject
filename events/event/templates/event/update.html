@@ -1,0 +1,25 @@
+{% extends "event/base.html" %}
+
+{% block title %}{{ event.title }}{% endblock %}
+
+{% block content %}
+
+{% if event %}
+  <h1>Изменить запись "{{ event.title }}"</h1>
+{% else %}
+  <h1>Добавить запись</h1>
+{% endif %}
+
+<form action="" method="post">
+  {% csrf_token %}
+  <table>{{ form.as_table }}</table>
+  {% if event %}
+  <p><button type="submit">Изменить</button></p>
+  {% else %}
+  <p><button class="input" type="submit">Добавить</button></p>
+  {% endif %}
+</form>
+<br>
+<p><a href="{% url 'event:event_create' %}">Новая запись</a></p>
+<p><a href="{% url 'event:event_list' %}">На главную</a></p>
+{% endblock %}

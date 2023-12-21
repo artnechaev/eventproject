@@ -3,15 +3,20 @@
 {% block title %}Events{% endblock %}
 
 {% block content %}
-  <h1>Events</h1>
-  {% for event in events %}
-    <h2>
-      <a href="{% url 'event:event_detail' event.id %}">
-        {{ event.title }}
-      </a>
-    </h2>
-    <p>{{ event.description }}</p>
-    <p class="date">{{ event.date_time }}</p>
-    <p>{{ event.location }}</p>
-  {% endfor %}
+<h1>Events</h1>
+
+{% for event in events %}
+  <h2>
+    <a href="{% url 'event:event_detail' event.id %}">
+      {{ event.title }}
+    </a>
+  </h2>
+  <p>{{ event.description }}</p>
+  <p class="date">{{ event.date_time|date:"d.m.Y" }}, {{ event.date_time|time:"H:i" }}</p>
+  <p>{{ event.location }}</p>
+{% endfor %}
+
+<br>
+<p><a href="{% url 'event:event_create' %}">Новая запись</a></p>
+
 {% endblock %}
