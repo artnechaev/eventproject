@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Event
@@ -6,8 +7,14 @@ from .forms import EventForm
 
 def event_list(request):
     events = Event.objects.all()
+    paginator = Paginator(events, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    events_paginated = page_obj.object_list
     context = {
-        'events': events,
+        'events': events_paginated,
+        'page_obj': page_obj,
+        'paginator': paginator,
     }
     return render(request, 'event/list.html', context)
 
